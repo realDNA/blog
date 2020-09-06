@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  app:
+    restart: always
+    container_name: blog_app
+    build:
+      dockerfile: docker-files/dev/Dockerfile
+      context: .
+    ports:
+      #host to image
+      - "8000:8000"
+    volumes:
+      - ./blog:/blog_root/blog
+    command: >
+      sh -c "bash scripts/initialization_scripts/initial_all.sh &&
+             python3 manage.py makemigrations &&
+             python3 manage.py migrate &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=blog
+      - DB_PASS=blogpass
+
+    depends_on:
+      - db
+
+  db:
+    restart: always
+    image: postgres:13-alpine
+    container_name: blog_db
+    ports:
+      #host to image
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=blog
+      - POSTGRES_PASSWORD=blogpass

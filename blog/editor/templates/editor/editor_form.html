@@ -1,0 +1,63 @@
+{% extends "editor/editor_base.html" %}
+
+{% block content %}
+
+<style>
+.ck-editor__editable_inline {
+    min-height: 400px;
+}
+</style>
+
+<div class="container">
+    <div class="post-create-form">
+        <h1 class="post-create-title">Create A New Post</h1>
+        <form method="POST" action="{% url 'editor:create_article' %}" id="postForm">
+            {% csrf_token %}
+            <div class="container">
+                <div>
+                    <label class="control-label" for="id_title">Title</label>
+                    <br/>
+                    <input class="input-name tool-tip-field" name="title" required maxlength="250">
+                    <div class="tooltips" style="display:inline-block;">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                        <span class="tooltiptext">
+                            <div class="help-block">Required. 100 characters maximum.</div>
+                        </span>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="form-group"><label class="control-label" for="id_category">Category</label>
+                      <br/>
+                      {{form.category}}
+                </div>
+                <br/>
+
+                <div>
+                    <label class="control-label" for="id_content">Content</label>
+                    <br/>
+
+                    <textarea name="content" id="editor">
+                        &lt;p&gt;This is some sample content.&lt;/p&gt;
+                    </textarea>
+                </div>
+
+            </div>
+
+            <hr/>
+            <div class="container box">
+                <input type="submit" value="Create" class="btn btn-default post-create-submit">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+{% endblock %}

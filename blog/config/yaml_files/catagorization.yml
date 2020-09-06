@@ -1,0 +1,23 @@
+US:
+  - alias: "us"
+
+World:
+  - alias: "world"
+
+Business:
+  - alias: "business"
+
+Entertainment:
+  - alias: "entertainment"
+
+Technology:
+  - alias: "technology"
+
+Science:
+  - alias: "science"
+
+Health:
+  - alias: "health"
+
+Sports:
+  - alias: "sports"
