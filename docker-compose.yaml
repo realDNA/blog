@@ -13,9 +13,9 @@ services:
     volumes:
       - ./blog:/blog_root/blog
     command: >
-      sh -c "bash scripts/initialization_scripts/initial_all.sh &&
-             python3 manage.py makemigrations &&
+      sh -c "python3 manage.py makemigrations &&
              python3 manage.py migrate &&
+             bash scripts/initialization_scripts/initial_all.sh &&
              python3 manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db

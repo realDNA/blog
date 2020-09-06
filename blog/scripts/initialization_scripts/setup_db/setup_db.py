@@ -7,7 +7,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
 django.setup()
 
 # Import module
-from general.models import Category
+from apps.general.models import Category
 from config.script.categorization_loader import load_category_data, get_keys
 
 
