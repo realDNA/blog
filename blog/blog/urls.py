@@ -15,11 +15,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django_registration.backends.one_step.views import RegistrationView  # escape email registration
+from apps.users.forms import CustomUserForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include("rest_framework.urls")),
-    path('api/', include('apps.article.api.urls', namespace="article-api")),
 
-    path('editor/', include('apps.editor.urls', namespace="editor")),
+    path('api/',
+         include('apps.article.api.urls', namespace="article-api")),
+
+    path('editor/',
+         include('apps.editor.urls', namespace="editor")),
+
+    path("accounts/register/",
+         RegistrationView.as_view(
+             form_class=CustomUserForm,
+             success_url="/",
+             ), name="django_registration_register"),  # create new account
+
+    path("accounts/",
+         include("django_registration.backends.one_step.urls")),
+
+    path("accounts/",
+         include("django.contrib.auth.urls")),  # login url
+
+    path('api-auth/',
+         include("rest_framework.urls")),  # login browser-able api
+
+    path('api/rest-auth/',
+         include('dj_rest_auth.urls')),  # login via rest
+
+    path("api/rest-auth/registration/",
+         include("dj_rest_auth.registration.urls")),  # registration in via rest
 ]

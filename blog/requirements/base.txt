@@ -2,3 +2,8 @@ Django==3.1.1
 djangorestframework==3.11.1
 psycopg2>=2.8.2,<2.9.0
 pyyaml
+dj-rest-auth
+django-allauth
+django-registration
+django-crispy-forms
+requests
