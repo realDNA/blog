@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from apps.general.models import Category
-
-User = get_user_model()
 
 
 class TempArticle(models.Model):
@@ -13,8 +11,13 @@ class TempArticle(models.Model):
                                  default=1,
                                  null=True)
     contents = models.TextField()
-    publication_date = models.DateField()
-    author = models.ForeignKey(User,
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    slug = models.SlugField(max_length=255,
+                            default='',
+                            editable=False,
+                            unique=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="temp_articles",
                                on_delete=models.DO_NOTHING)
 
@@ -34,8 +37,13 @@ class Article(models.Model):
                                  default=1,
                                  null=True)
     contents = models.TextField()
-    publication_date = models.DateField()
-    author = models.ForeignKey(User,
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    slug = models.SlugField(max_length=255,
+                            default='',
+                            editable=False,
+                            unique=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                related_name="articles",
                                on_delete=models.DO_NOTHING)
 

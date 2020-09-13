@@ -2,7 +2,7 @@ from django.urls import path
 from apps.article.api.views import (ArticleListCreateAPIView, ArticleDetailAPIView
                                     , TempArticleListCreateAPIView, TempArticleDetailAPIView)
 
-app_name = 'editor-api'
+app_name = 'article-api'
 
 urlpatterns = [
     path("articles/", ArticleListCreateAPIView.as_view(), name="article-list"),
